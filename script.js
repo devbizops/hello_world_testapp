@@ -63,6 +63,9 @@ function handleGreet() {
     // Update greeting with animation
     animateGreeting(`${randomGreeting}, ${name}! ${randomEmoji}`, randomSubtext);
     
+    // Check and adjust for long names
+    adjustForLongName(name);
+    
     // Store name in localStorage
     localStorage.setItem('lastName', name);
     
@@ -78,6 +81,9 @@ function handleReset() {
     
     // Remove stored name
     localStorage.removeItem('lastName');
+    
+    // Reset greeting size
+    resetGreetingSize();
     
     // Add reset animation
     addResetAnimation();
@@ -161,6 +167,72 @@ function addResetAnimation() {
             greetingDisplay.style.transform = 'rotate(0deg)';
         }, 200);
     }, 200);
+    
+    // Reset font size and container size
+    resetGreetingSize();
+}
+
+// Check and adjust for long names
+function adjustForLongName(name) {
+    // Wait for the greeting text to be updated
+    setTimeout(() => {
+        const greetingElement = document.getElementById('greetingText');
+        const greetingDisplay = document.getElementById('greetingDisplay');
+        
+        // Remove any existing size classes
+        greetingElement.classList.remove('small-font', 'tiny-font');
+        greetingDisplay.classList.remove('long-name');
+        
+        // Get the current dimensions
+        const displayRect = greetingDisplay.getBoundingClientRect();
+        
+        // Calculate if text is overflowing
+        const textWidth = greetingElement.scrollWidth;
+        const containerWidth = displayRect.width - 60; // Account for padding
+        
+        if (textWidth > containerWidth) {
+            // Text is overflowing, need to adjust
+            const overflowRatio = containerWidth / textWidth;
+            const currentFontSize = parseFloat(window.getComputedStyle(greetingElement).fontSize);
+            const newFontSize = Math.max(currentFontSize * overflowRatio * 0.9, 1.2); // Minimum 1.2rem
+            
+            // Apply new font size
+            greetingElement.style.fontSize = `${newFontSize}rem`;
+            
+            // Add appropriate CSS classes for very small fonts
+            if (newFontSize < 1.5) {
+                greetingElement.classList.add('small-font');
+            }
+            if (newFontSize < 1.3) {
+                greetingElement.classList.add('tiny-font');
+            }
+            
+            // Also adjust container if needed
+            if (newFontSize < 1.8) {
+                greetingDisplay.classList.add('long-name');
+            }
+            
+            // Add a subtle animation for the size change
+            greetingElement.style.transition = 'font-size 0.3s ease';
+        } else {
+            // Reset to default size if text fits
+            resetGreetingSize();
+        }
+    }, 350); // Wait for the greeting animation to complete
+}
+
+// Reset greeting size to default
+function resetGreetingSize() {
+    const greetingElement = document.getElementById('greetingText');
+    const greetingDisplay = document.getElementById('greetingDisplay');
+    
+    // Reset font size
+    greetingElement.style.fontSize = '';
+    greetingElement.style.transition = '';
+    
+    // Remove size classes
+    greetingElement.classList.remove('small-font', 'tiny-font');
+    greetingDisplay.classList.remove('long-name');
 }
 
 // Create confetti effect
