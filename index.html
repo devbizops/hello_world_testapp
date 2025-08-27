@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Hello App</h1>
+            <p class="subtitle">Welcome to your personalized greeting experience</p>
+        </header>
+        
+        <main class="main-content">
+            <div class="greeting-card">
+                <div class="greeting-display" id="greetingDisplay">
+                    <h2 id="greetingText">Hello, World! 👋</h2>
+                    <p id="greetingSubtext">Welcome to your new app</p>
+                </div>
+                
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="nameInput">Enter your name:</label>
+                        <input 
+                            type="text" 
+                            id="nameInput" 
+                            placeholder="Type your name here..."
+                            class="name-input"
+                        >
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="greetBtn" class="btn btn-primary">Say Hello</button>
+                        <button id="resetBtn" class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <h3>Features</h3>
+                    <ul class="feature-list">
+                        <li>✨ Personalized greetings</li>
+                        <li>🎨 Modern, responsive design</li>
+                        <li>⚡ Fast and lightweight</li>
+                        <li>📱 Mobile-friendly</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 2024 Hello App. Built with ❤️</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
